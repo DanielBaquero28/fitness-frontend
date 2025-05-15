@@ -27,9 +27,11 @@ export default function RegisterForm() {
 
             setMessage('✅ Registered successfully!');
             console.log('Reponse: ' + response.data);
-        } catch (err: any) {
-            console.log('Response error: ' + err.response);
-            setMessage('❌ Registration failed.');
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                console.log('Response error: ' + err.response);
+                setMessage('❌ Registration failed.');
+            }
         }
     };
 

@@ -46,9 +46,11 @@ export default function CreateGoalForm({ onGoalCreated }: Props) {
             setForm({ title: '', description: '', target: '' });
 
 
-        } catch (error: any) {
-            console.error(error.response?.data || error.message);
-            setError('Failed to create goal');
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                console.error(err.response?.data || err.message);
+                setError('Failed to create goal');
+            }
         }
     };
 

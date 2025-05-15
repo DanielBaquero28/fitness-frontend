@@ -42,9 +42,11 @@ export default function DashboardPage() {
       console.log("GOALS:")
       console.log(response.data)
       setGoals(response.data);
-    } catch (err: any) {
-      console.error(err.response || err.message);
-      setError('Failed to load goals. Please make sure youre authenticated. ');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        console.error(err.response || err.message);
+        setError('Failed to load goals. Please make sure youre authenticated. ');
+      }
     }
   };
 

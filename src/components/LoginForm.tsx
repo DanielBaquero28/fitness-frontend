@@ -43,9 +43,11 @@ export default function LoginForm() {
             localStorage.setItem('token', access_token);
             router.push('/dashboard');
 
-        } catch (err: any) {
-            console.error(err.response?.data || err.message);
-            setError("Invalid username or password");
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                console.error(err.response?.data || err.message);
+                setError("Invalid username or password");
+            }
         }
     };
 
